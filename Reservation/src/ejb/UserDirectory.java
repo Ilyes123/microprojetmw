@@ -25,7 +25,7 @@ public class UserDirectory implements IUserDirectory {
     public int addUser(String userName, boolean rng, boolean wng){
         lastUserId++;
         MailUser mu = new MailUser(lastUserId, userName, rng, wng);
-        NewsGroupRight ngr = mu.getNewsGroupRight; 
+        NewsGroupRight ngr = mu.getNewsGroupRight(); 
         em.persist(mu);
         em.persist(ngr);
         return mu.getId();
@@ -33,7 +33,7 @@ public class UserDirectory implements IUserDirectory {
 
     public void removeUser(int userId){
         
-        Reservation r = em.merge(MailUser(resId));
+        MailUser r = em.merge(findMailUser(userId));
 
         // Delete records.
         em.remove(r);
@@ -45,7 +45,7 @@ public class UserDirectory implements IUserDirectory {
     }
 
     public List<MailUser> lookupAllUsers() {
-        Query q = em.createQuery("select c from Reservation c");
+        Query q = em.createQuery("select c from MailUser c");
         return (List<MailUser>)q.getResultList();
     }
 
@@ -63,11 +63,15 @@ public class UserDirectory implements IUserDirectory {
     }
     
     public void clearDB() {
-       ReservationClient c = findClient("client1");
-       Show s = findShow("Paris", "StarCraft");
-       c = em.merge(c);
-       em.remove(c);
-       s = em.merge(s);
-       em.remove(c);
+        MailUser r = em.merge(findMailUser(1));
+        // Delete records.
+        em.remove(r);
+        r = em.merge(findMailUser(2));
+        // Delete records.
+        em.remove(r);
+        r = em.merge(findMailUser(3));
+        // Delete records.
+        em.remove(r);
+
     }
 }

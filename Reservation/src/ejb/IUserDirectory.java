@@ -3,7 +3,7 @@ package ejb;
 import javax.ejb.Remote;
 
 import entity.*;
-import java.util.Set;
+import java.util.List;
 
 @Remote public interface IUserDirectory {
     // peupler la base de données
@@ -15,7 +15,7 @@ import java.util.Set;
 
     public NewsGroupRight lookupAUserRights(int id);
     
-    public void updateAUserRights(int id, boolean rng,boolean wng)
+    public void updateAUserRights(int id, boolean rng,boolean wng);
 
     public void clearDB();
 }

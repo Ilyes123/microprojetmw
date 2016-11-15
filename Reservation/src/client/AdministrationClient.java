@@ -7,16 +7,16 @@ import javax.ejb.*;
 import java.util.Collection;
 import java.util.List;
 
-import ejb.Test;
+import ejb.IUserDirectory;
 import entity.*;
 
 public class AdministrationClient {
 	public static void main(String args[]) {
-		Test sb;
+		IUserDirectory sb;
 
         try {
 			InitialContext ic = new InitialContext();
-			sb = (Test) ic.lookup("ejb.IUserDirectory");
+			sb = (IUserDirectory) ic.lookup("ejb.IUserDirectory");
 
             int id1 = sb.addUser("User1", true, true);
             

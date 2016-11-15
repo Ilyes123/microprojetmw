@@ -24,7 +24,7 @@ public class NewsGroupRight {
     }
 
     @Column(name="READ")
-    public int getReadNewsGroup() {
+    public boolean getReadNewsGroup() {
         return readNewsGroup;
     }
 
@@ -33,7 +33,7 @@ public class NewsGroupRight {
     }
 
     @Column(name="WRITE")
-    public int getWriteNewsGroup() {
+    public boolean getWriteNewsGroup() {
         return writeNewsGroup;
     }
 

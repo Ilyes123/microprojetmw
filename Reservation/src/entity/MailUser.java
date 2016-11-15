@@ -8,20 +8,20 @@ import java.util.ArrayList;
 public class MailUser {
     private int id;
     private String userName;
-    private NewsGroupRight newsGroupRight = new NewsGroupRight();
+    private NewsGroupRight newsGroupRight;
     
-    public MailUser(int id, String userName, boolean rng, boolean wmg){
+    public MailUser(int id, String userName, boolean rng, boolean wng){
         this.id = id;
         this.userName = userName;
-        this.NewsGroupRight.setId(id);
-        this.NewsGroupRight.setReadNewsGroup(rng);
-        this.NewsGroupRight.setWriteiNewsGroup(wng); 
+        this.newsGroupRight.setId(id);
+        this.newsGroupRight.setReadNewsGroup(rng);
+        this.newsGroupRight.setWriteNewsGroup(wng); 
     }
-        
+     
     @Id
     @Column(name="ID")
     public int getId() {
-        return userName;
+        return id;
     }
 
     public void setId(int id) {
@@ -30,12 +30,12 @@ public class MailUser {
 
     
     @Column(name="USER_NAME")
-    public int getUserName() {
-        return userName;
+    public String getUserName() {
+        return this.userName;
     }
 
-    public void setUserName(string userName) {
-        this.userName = userName;
+    public void setUserName(String u) {
+        this.userName = u;
     }
         
 
