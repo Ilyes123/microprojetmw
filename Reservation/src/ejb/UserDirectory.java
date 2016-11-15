@@ -22,13 +22,13 @@ public class UserDirectory implements IUserDirectory {
     public void fill() {
     }
     
-    public int addUser(String userName, boolean rng, boolean wng){
+    public int addUser(String userName, boolean readNewsGroup, boolean writeNewsGroup){
         lastUserId++;
-        MailUser mu = new MailUser(lastUserId, userName, rng, wng);
-        NewsGroupRight ngr = mu.getNewsGroupRight(); 
-        em.persist(mu);
-        em.persist(ngr);
-        return mu.getId();
+        MailUser mailUser = new MailUser(lastUserId, userName, readNewsGroup, writeNewsGroup);
+        NewsGroupRight newsGroupRight = mailUser.getNewsGroupRight(); 
+        em.persist(newsGroupRight);
+        em.persist(mailUser);
+        return mailUser.getId();
     }
 
     public void removeUser(int userId){
@@ -50,16 +50,16 @@ public class UserDirectory implements IUserDirectory {
     }
 
     public NewsGroupRight lookupAUserRights(int id){
-        MailUser mu = findMailUser(id);
-        return mu.getNewsGroupRight();
+        MailUser mailUser = findMailUser(id);
+        return mailUser.getNewsGroupRight();
     }
    
-    public void updateAUserRights(int id, boolean rng, boolean wng){
-        MailUser mu = findMailUser(id);
-        NewsGroupRight ngr = mu.getNewsGroupRight();
-        ngr.setReadNewsGroup(rng);
-        ngr.setWriteNewsGroup(wng);
-        mu.setNewsGroupRight(ngr);
+    public void updateAUserRights(int id, boolean readNewsGroup, boolean writeNewsGroup){
+        MailUser mailUser = findMailUser(id);
+        NewsGroupRight newsGroupRight = mailUser.getNewsGroupRight();
+        newsGroupRight.setReadNewsGroup(readNewsGroup);
+        newsGroupRight.setWriteNewsGroup(writeNewsGroup);
+        mailUser.setNewsGroupRight(newsGroupRight);
     }
     
     public void clearDB() {
