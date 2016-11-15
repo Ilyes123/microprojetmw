@@ -7,15 +7,15 @@ import java.util.Set;
 
 @Remote public interface IUserDirectory {
     // peupler la base de données
-    public void addUser(String userName, boolean rng, boolean wng);
+    public int addUser(String userName, boolean rng, boolean wng);
 
-    public void removeUser();
+    public void removeUser(int userId);
 
-    public Set<MailUser> lookupAllUsers();
+    public List<MailUser> lookupAllUsers();
 
-    public NewsGroupRight lookupAUserRights(String userName);
+    public NewsGroupRight lookupAUserRights(int id);
     
-    public void updateAUserRights(String userName, boolean rng,boolean wng)
+    public void updateAUserRights(int id, boolean rng,boolean wng)
 
     public void clearDB();
 }

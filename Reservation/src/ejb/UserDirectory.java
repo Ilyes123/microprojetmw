@@ -46,7 +46,20 @@ public class UserDirectory implements IUserDirectory {
 
     public List<MailUser> lookupAllUsers() {
         Query q = em.createQuery("select c from Reservation c");
-        return (Reservation)q.getSingleResult();
+        return (List<MailUser>)q.getResultList();
+    }
+
+    public NewsGroupRight lookupAUserRights(int id){
+        MailUser mu = findMailUser(id);
+        return mu.getNewsGroupRight();
+    }
+   
+    public void updateAUserRights(int id, boolean rng, boolean wng){
+        MailUser mu = findMailUser(id);
+        NewsGroupRight ngr = mu.getNewsGroupRight();
+        ngr.setReadNewsGroup(rng);
+        ngr.setWriteNewsGroup(wng);
+        mu.setNewsGroupRight(ngr);
     }
     
     public void clearDB() {
