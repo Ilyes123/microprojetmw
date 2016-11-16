@@ -36,20 +36,20 @@ public class MailBoxManager implements IMailBoxManager {
         em.remove(r);
     }
     private MailBox findMailBox(int boxId) {
-        Query q = em.createQuery("select * from MailBox m where m.ID = :boxId");
+        Query q = em.createQuery("select c from MailBox m where m.id = :boxId");
         q.setParameter("boxId", boxId);
         return (MailBox)q.getSingleResult();
     }
 
     private MailBox findMailBoxByUserId(int userId) {
-        Query q = em.createQuery("select * from MailBox c where c.USER_ID = :userId");
+        Query q = em.createQuery("select c from MailBox c where c.userId = :userId");
         q.setParameter("userId", userId);
         return (MailBox)q.getSingleResult();
     }
 
 
     private Message findMessage(int msgId) {
-        Query q = em.createQuery("select * from Message c where c.ID = :msgId");
+        Query q = em.createQuery("select c from Message c where c.id = :msgId");
         q.setParameter("msgId", msgId);
         return (Message)q.getSingleResult();
     }

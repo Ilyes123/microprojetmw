@@ -3,6 +3,7 @@ package ejb;
 import javax.ejb.Remote;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.naming.InitialContext;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -15,7 +16,7 @@ import java.lang.Exception;
 @Stateful(name="ejb/IUserDirectory")
 public class UserDirectory implements IUserDirectory {
     static int lastUserId=0;
-
+    private IMailBoxManager sb;
     @PersistenceContext(unitName="pu1")
     private EntityManager em;
 
@@ -28,6 +29,15 @@ public class UserDirectory implements IUserDirectory {
         NewsGroupRight newsGroupRight = mailUser.getNewsGroupRight(); 
         em.persist(newsGroupRight);
         em.persist(mailUser);
+        try {
+            InitialContext ic = new InitialContext();
+            sb = (IMailBoxManager) ic.lookup("ejb.IMailBoxManager");
+
+            sb.addMailBox(mailUser.getId(), userName + "Box");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         return mailUser.getId();
     }
 
@@ -39,7 +49,7 @@ public class UserDirectory implements IUserDirectory {
         em.remove(r);
     }
     private MailUser findMailUser(int userId) {
-        Query q = em.createQuery("select c from MailUser c where c.ID = :userId");
+        Query q = em.createQuery("select c from MailUser c where c.id = :userId");
         q.setParameter("userId", userId);
         return (MailUser)q.getSingleResult();
     }
@@ -63,11 +73,17 @@ public class UserDirectory implements IUserDirectory {
     }
    
     public MailUser findMailUserByName(String userName){
-        Query q = em.createQuery("select c from MailUser c where c.USER_NAME = :userName");
+        Query q = em.createQuery("select c from MailUser c where c.userName = :userName");
         q.setParameter("userName", userName);
         return (MailUser)q.getSingleResult();
     }
     
+    public void removeUser(String userName){
+        MailUser mu = em.merge(findMailUserByName(userName));
+        em.remove(mu);
+    }
+    
+     
     public void clearDB() {
         MailUser r = em.merge(findMailUser(1));
         // Delete records.

@@ -10,6 +10,7 @@ import java.util.List;
     public int addUser(String userName, boolean rng, boolean wng);
 
     public void removeUser(int userId);
+    public void removeUser(String userName);
 
     public List<MailUser> lookupAllUsers();
 

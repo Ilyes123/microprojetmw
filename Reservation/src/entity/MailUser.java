@@ -20,7 +20,7 @@ public class MailUser {
     }
      
     @Id
-    @Column(name="ID")
+    @Column(name="MAIL_USER_ID")
     public int getId() {
         return id;
     }
@@ -29,7 +29,7 @@ public class MailUser {
         this.id = id;
     }
 
-    @Id 
+     
     @Column(name="USER_NAME")
     public String getUserName() {
         return this.userName;
