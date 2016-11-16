@@ -15,12 +15,13 @@ import javax.ws.rs.core.MediaType;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.ArrayList;
 
 import entity.*;
 import java.lang.Exception;
 
 @Path("/mail_box")
-public class MailBoxManagerRest implements IMailBoxManager {
+public class MailBoxManagerRest {
     @PersistenceContext(unitName="pu1")
     private EntityManager em;
 
@@ -82,7 +83,7 @@ public class MailBoxManagerRest implements IMailBoxManager {
     @Produces(MediaType.TEXT_PLAIN)
     public List<Message> readAUserAllMessages(@PathParam("user_id") int userId){
         Box b = em.merge(findBox(userId));
-        ArrayList<Message> messages = box.getMessages();
+        ArrayList<Message> messages = b.getMessages();
         b.readUnreadMessages();
         return (List<Message>)messages;
     }
@@ -116,7 +117,7 @@ public class MailBoxManagerRest implements IMailBoxManager {
         NewsBox nb = em.merge((NewsBox)q.getSingleResult());
 
         nb.addMessage(userName,msg);
-
+        return 1;
     }
 
 }
