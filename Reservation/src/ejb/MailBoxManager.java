@@ -68,7 +68,7 @@ public class MailBoxManager implements IMailBoxManager {
    
     public void deleteAUserMessage(int userId, int msgId){
         Message m = em.merge(findMessage(msgId));
-        em.remvoe(m);
+        em.remove(m);
     }
 
     public void deleteAUserReadMessages(int userId) {
