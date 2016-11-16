@@ -5,5 +5,5 @@ import entity.*;
 public interface IBox {
   void readAllMessages();
   void readAMessage(int messageId);
-  void addMessage(Message message);
+  void addMessage(String userName, Message message);
 }

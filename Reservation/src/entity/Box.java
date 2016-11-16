@@ -72,7 +72,7 @@ public class Box implements IBox {
         }
     }
 
-    public void addMessage(Message message){
+    public void addMessage(String userName, Message message){
       messages.add(message);
     }
 }

@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.ArrayList;
 
 import entity.*;
 import java.lang.Exception;
@@ -26,7 +27,7 @@ public class MailBoxManager implements IMailBoxManager {
         return box.getId();
     }
 
-    public void removeBox(int boxId){
+    public void removeMailBox(int boxId){
         
         Box r = em.merge(findBox(boxId));
 
@@ -49,7 +50,7 @@ public class MailBoxManager implements IMailBoxManager {
 
     public List<Message> readAUserNewMessages(int userId) {
         Box b = em.merge(findBox(userId));
-        ArrayList<Message> messages = box.getMessages();
+        ArrayList<Message> messages = b.getMessages();
         for (Message m : messages){
             if (m.getIsRead()){
                 messages.remove(m);
@@ -61,7 +62,7 @@ public class MailBoxManager implements IMailBoxManager {
 
     public List<Message> readAUserAllMessages(int userId){
         Box b = em.merge(findBox(userId));
-        ArrayList<Message> messages = box.getMessages();
+        ArrayList<Message> messages = b.getMessages();
         b.readUnreadMessages();
         return (List<Message>)messages;
     }
@@ -82,13 +83,16 @@ public class MailBoxManager implements IMailBoxManager {
         b.setMessages(messages);
     }
 
-    public int sendNews(String userName, Message msg){
+    public void sendNews(String userName, Message msg){
         Query q = em.createQuery("select c from NewsBox c");
         
         NewsBox nb = em.merge((NewsBox)q.getSingleResult());
 
         nb.addMessage(userName,msg);
 
+    }
+
+    public void sendAMessageToABox(Message msg, int userId, int boxId){
     }
 
 }

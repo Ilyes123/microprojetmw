@@ -17,9 +17,9 @@ import java.util.List;
     
     public void sendAMessageToABox(Message msg, int userId, int boxId);
 
-    public int addMailBox(int userId);
+    public int addMailBox(int userId, String boxName);
     
-    public int removeMailBox(int mailBoxId);
+    public void removeMailBox(int mailBoxId);
 
-    public int sendNews(String senderName, Message msg);
+    public void sendNews(String senderName, Message msg);
 }
