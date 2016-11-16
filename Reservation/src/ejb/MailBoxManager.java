@@ -59,7 +59,7 @@ public class MailBoxManager implements IMailBoxManager {
         return (List<Message>)messages;
     }
 
-    public List<Messages> readAUserAllMessages(int userId){
+    public List<Message> readAUserAllMessages(int userId){
         Box b = em.merge(findBox(userId));
         ArrayList<Message> messages = box.getMessages();
         b.readUnreadMessages();
@@ -87,7 +87,7 @@ public class MailBoxManager implements IMailBoxManager {
         
         NewsBox nb = em.merge((NewsBox)q.getSingleResult());
 
-        nb.addMessage(String userName,msg);
+        nb.addMessage(userName,msg);
 
     }
 

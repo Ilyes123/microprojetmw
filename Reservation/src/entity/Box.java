@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.ArrayList;
 
+import entity.*;
+
 @Entity
 public class Box implements IBox {
     protected int userId;

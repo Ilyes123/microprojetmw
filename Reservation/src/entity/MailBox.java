@@ -6,9 +6,18 @@ import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
-public class NewsBox extends Box implements IMailBox {
+public class MailBox extends Box implements IMailBox {
+  public MailBox(int id, int usrId, String boxName){
+    super(id, usrId, boxName);
+  }
+
   public void deleteAMessage(int msgId) {
-    messages.remove(msg);
+    for(Message msg : messages) {
+      if(msg.getId() == msgId){
+        messages.remove(msg);
+        break;
+      }
+    }
   }
 
   public void deleteReadMessages() {

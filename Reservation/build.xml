@@ -36,7 +36,7 @@
     <javac classpath="${glassfish.home}/lib/javaee.jar" 
            srcdir="src/entity"
            destdir="."
-           includes="MailUser.java,NewsGroupRight.java"/>
+           includes="MailUser.java,NewsGroupRight.java,Box.java,IBox.java,IMailBox.java,MailBox.java,NewsBox.java,Message.java"/>
   </target>
 
   <target name="build-ejb"
@@ -44,7 +44,7 @@
     <javac classpath="${glassfish.home}/lib/javaee.jar:./entities.jar" 
            srcdir="src/ejb"
            destdir="."
-           includes="UserDirectory.java,IUserDirectory.java"/>
+           includes="UserDirectory.java,IUserDirectory.java,IMailBoxManager.java,MailBoxManager.java"/>
   </target>
 
   <target name="build-client" 
