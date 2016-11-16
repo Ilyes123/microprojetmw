@@ -9,6 +9,8 @@ import java.util.List;
     // peupler la base de données
     public List<Message> readAUserNewMessages(int userId);
 
+    public void createNewsBox();
+
     public List<Message> readAUserAllMessages(int userId);
 
     public void deleteAUserMessage(int userId, int msgId);

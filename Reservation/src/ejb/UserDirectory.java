@@ -20,7 +20,17 @@ public class UserDirectory implements IUserDirectory {
     @PersistenceContext(unitName="pu1")
     private EntityManager em;
 
-    public void fill() {
+    public void createNewsBox(){
+        try {
+            InitialContext ic = new InitialContext();
+            sb = (IMailBoxManager) ic.lookup("ejb.IMailBoxManager");
+
+            sb.createNewsBox();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
     
     public int addUser(String userName, boolean readNewsGroup, boolean writeNewsGroup){

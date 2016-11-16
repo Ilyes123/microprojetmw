@@ -8,6 +8,8 @@ import java.util.List;
 @Remote public interface IUserDirectory {
     // peupler la base de données
     public int addUser(String userName, boolean rng, boolean wng);
+    
+    public void createNewsBox();
 
     public void removeUser(int userId);
     public void removeUser(String userName);

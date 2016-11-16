@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.ArrayList;
 
-@Entity
+@MappedSuperclass
 public class Box implements IBox {
     protected int userId;
     protected int id;

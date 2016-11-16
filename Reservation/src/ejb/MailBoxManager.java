@@ -20,6 +20,12 @@ public class MailBoxManager implements IMailBoxManager {
     @PersistenceContext(unitName="pu1")
     private EntityManager em;
     IUserDirectory sb;
+   
+   
+    public void createNewsBox(){
+        NewsBox nb = new NewsBox(0, 0, "NewsBox");
+        em.persist(nb);
+    }
     
     public int addMailBox(int userId, String boxName){
         lastBoxId++;
