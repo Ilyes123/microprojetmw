@@ -21,7 +21,7 @@ public class MailBoxManager implements IMailBoxManager {
     
     public int addMailBox(int userId, String boxName){
         lastBoxId++;
-        Box box = new Box(lastBoxId, boxName);
+        Box box = new Box(lastBoxId, userId, boxName);
         em.persist(box);
         return box.getId();
     }
@@ -39,6 +39,14 @@ public class MailBoxManager implements IMailBoxManager {
         return (Box)q.getSingleResult();
     }
 
+    private Message findMessage(int msgId) {
+        Query q = em.createQuery("select c from Message c where c.ID = :msgId");
+        q.setParameter("msgId", msgId);
+        return (Message)q.getSingleResult();
+    }
+
+
+
     public List<Message> readAUserNewMessages(int userId) {
         Box b = em.merge(findBox(userId));
         ArrayList<Message> messages = box.getMessages();
@@ -51,29 +59,36 @@ public class MailBoxManager implements IMailBoxManager {
         return (List<Message>)messages;
     }
 
-    public NewsGroupRight lookupAUserRights(int id){
-        MailUser mailUser = findMailUser(id);
-        return mailUser.getNewsGroupRight();
+    public List<Messages> readAUserAllMessages(int userId){
+        Box b = em.merge(findBox(userId));
+        ArrayList<Message> messages = box.getMessages();
+        b.readUnreadMessages();
+        return (List<Message>)messages;
     }
    
-    public void updateAUserRights(int id, boolean readNewsGroup, boolean writeNewsGroup){
-        MailUser mailUser = findMailUser(id);
-        NewsGroupRight newsGroupRight = mailUser.getNewsGroupRight();
-        newsGroupRight.setReadNewsGroup(readNewsGroup);
-        newsGroupRight.setWriteNewsGroup(writeNewsGroup);
-        mailUser.setNewsGroupRight(newsGroupRight);
+    public void deleteAUserMessage(int userId, int msgId){
+        Message m = em.merge(findMessage(msgId));
+        em.remvoe(m);
     }
-    
-    public void clearDB() {
-        MailUser r = em.merge(findMailUser(1));
-        // Delete records.
-        em.remove(r);
-        r = em.merge(findMailUser(2));
-        // Delete records.
-        em.remove(r);
-        r = em.merge(findMailUser(3));
-        // Delete records.
-        em.remove(r);
+
+    public void deleteAUserReadMessages(int userId) {
+        Box b = em.merge(findBox(userId));
+        ArrayList<Message> messages = b.getMessages();
+        for (Message m : messages){
+            if (m.getIsRead()){
+                messages.remove(m);
+            }
+        }
+        b.setMessages(messages);
+    }
+
+    public int sendNews(String userName, Message msg){
+        Query q = em.createQuery("select c from NewsBox c");
+        
+        NewsBox nb = em.merge((NewsBox)q.getSingleResult());
+
+        nb.addMessage(String userName,msg);
 
     }
+
 }

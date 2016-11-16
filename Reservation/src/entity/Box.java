@@ -11,9 +11,10 @@ public class Box implements IBox {
     protected String boxName;
     protected ArrayList<Message> messages;
     
-    public Box (int id, String boxName){
+    public Box (int id, int userId, String boxName){
         this.messages = new ArrayList();
         this.id = id;
+        this.userId = userId;
         this.boxName = boxName;
     }
      
@@ -38,7 +39,7 @@ public class Box implements IBox {
     }
 
     @OneToMany
-    @JoinColumn(name="Messages", nullable=true)
+    @JoinColumn(name="MAIL_BOX_ID", nullable=true)
     public ArrayList<Message> getMessages() {
       return messages;
     }
