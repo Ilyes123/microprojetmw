@@ -10,7 +10,7 @@
   <property name="entity" value="entity"/>
   <property name="ejb" value="ejb"/>
   <property name="client" value="client"/>
-
+  
   <target name="init">
     <!-- Create the build directory structure -->
     <mkdir dir="${entity}"/>
@@ -41,10 +41,10 @@
 
   <target name="build-ejb"
         description="Build ejb jar" >
-    <javac classpath="${glassfish.home}/lib/javaee.jar:./entities.jar" 
+        <javac classpath="${glassfish.home}/lib/javaee.jar:./entities.jar:./lib/gson-2.2.2.jar" 
            srcdir="src/ejb"
            destdir="."
-           includes="UserDirectory.java,IUserDirectory.java,IMailBoxManager.java,MailBoxManager.java"/>
+           includes="UserDirectory.java,IUserDirectory.java,IMailBoxManager.java,MailBoxManager.java,MailBoxManagerRest.java"/>
   </target>
 
   <target name="build-client" 
