@@ -5,10 +5,15 @@ import javax.persistence.*;
 @Entity
 public class NewsGroupRight {
     private int id;
+    static private int lastId=0;
     private boolean readNewsGroup, writeNewsGroup;
-   
-    public NewsGroupRight(int id,boolean rng, boolean wng){
-        this.id = id;
+    
+    public NewsGroupRight(){
+    }
+       
+    public NewsGroupRight(boolean rng, boolean wng){
+        lastId++; 
+        this.id = lastId;
         this.readNewsGroup = rng;
         this.writeNewsGroup = wng;
     }
@@ -23,7 +28,7 @@ public class NewsGroupRight {
         this.id = id;
     }
 
-    @Column(name="READ")
+    @Column(name="READ_Right")
     public boolean getReadNewsGroup() {
         return readNewsGroup;
     }
@@ -32,7 +37,7 @@ public class NewsGroupRight {
         this.readNewsGroup = rng;
     }
 
-    @Column(name="WRITE")
+    @Column(name="WRITE_Right")
     public boolean getWriteNewsGroup() {
         return writeNewsGroup;
     }

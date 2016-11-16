@@ -10,12 +10,13 @@ public class MailUser {
     private String userName;
     private NewsGroupRight newsGroupRight;
     
+    public MailUser(){
+    }
+    
     public MailUser(int id, String userName, boolean rng, boolean wng){
         this.id = id;
         this.userName = userName;
-        this.newsGroupRight.setId(id);
-        this.newsGroupRight.setReadNewsGroup(rng);
-        this.newsGroupRight.setWriteNewsGroup(wng); 
+        this.newsGroupRight = new NewsGroupRight(rng, wng);
     }
      
     @Id
@@ -38,7 +39,7 @@ public class MailUser {
         this.userName = u;
     }
         
-
+    @OneToOne
     @JoinColumn(name="NEWS_GROUP_RIGHT")
     public NewsGroupRight getNewsGroupRight() {
         return newsGroupRight;

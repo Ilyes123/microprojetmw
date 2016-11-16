@@ -19,6 +19,9 @@ public class Message {
         this.sendingDate = sendingDate;
         this.alreadyRead = alreadyRead;
     }
+    
+    public Message(){
+    }
      
     @Id
     @Column(name="ID")

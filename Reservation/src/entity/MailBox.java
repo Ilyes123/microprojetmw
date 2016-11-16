@@ -5,12 +5,15 @@ import entity.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 
-@Entity
+@Entity(name="MailBox")
 public class MailBox extends Box implements IMailBox {
   public MailBox(int id, int usrId, String boxName){
     super(id, usrId, boxName);
   }
-
+    
+  public MailBox(){
+    super();
+  }
   public void deleteAMessage(int msgId) {
     for(Message msg : messages) {
       if(msg.getId() == msgId){

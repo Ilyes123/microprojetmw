@@ -4,8 +4,6 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.ArrayList;
 
-import entity.*;
-
 @Entity
 public class Box implements IBox {
     protected int userId;
@@ -18,6 +16,9 @@ public class Box implements IBox {
         this.id = id;
         this.userId = userId;
         this.boxName = boxName;
+    }
+    
+    public Box(){
     }
      
     @Id
