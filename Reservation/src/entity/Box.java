@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 @Entity
 public class Box implements IBox {
-    private int id;
-    String boxName;
-    ArrayList<Message> messages;
+    protected int id;
+    protected String boxName;
+    protected ArrayList<Message> messages;
     
     public Box (int id, String boxName){
         this.messages = new
