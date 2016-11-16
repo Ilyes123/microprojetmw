@@ -49,8 +49,8 @@ public class UserDirectory implements IUserDirectory {
         return (List<MailUser>)q.getResultList();
     }
 
-    public NewsGroupRight lookupAUserRights(int id){
-        MailUser mailUser = findMailUser(id);
+    public NewsGroupRight lookupAUserRights(String userName){
+        MailUser mailUser = findMailUserByName(userName);
         return mailUser.getNewsGroupRight();
     }
    
@@ -60,6 +60,12 @@ public class UserDirectory implements IUserDirectory {
         newsGroupRight.setReadNewsGroup(readNewsGroup);
         newsGroupRight.setWriteNewsGroup(writeNewsGroup);
         mailUser.setNewsGroupRight(newsGroupRight);
+    }
+   
+    public MailUser findMailUserByName(String userName){
+        Query q = em.createQuery("select c from MailUser c where c.USER_NAME = :userName");
+        q.setParameter("userName", userName);
+        return (MailUser)q.getSingleResult();
     }
     
     public void clearDB() {

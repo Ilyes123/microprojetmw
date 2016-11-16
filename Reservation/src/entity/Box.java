@@ -40,6 +40,15 @@ public class Box implements IBox {
         this.boxName = u;
     }
 
+
+    @Column(name="USER_ID")
+    public int getUserId(){
+        return this.userId;
+    }
+     public void setUserId(int userId){
+        this.userId = userId;
+    }
+
     @OneToMany
     @JoinColumn(name="MAIL_BOX_ID", nullable=true)
     public ArrayList<Message> getMessages() {

@@ -15,7 +15,7 @@ import java.util.List;
 
     public void deleteAUserReadMessages(int userId);
     
-    public void sendAMessageToABox(Message msg, int userId, int boxId);
+    public void sendAMessageToABox(Message msg, String senderName, int boxId);
 
     public int addMailBox(int userId, String boxName);
     
