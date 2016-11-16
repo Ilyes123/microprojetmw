@@ -4,7 +4,7 @@
 	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 	<persistence-unit name="pu1"> <!-- Your persistence unit name used in the Java code -->
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <jta-data-source>arc_en_ciel</jta-data-source>
+        <jta-data-source>user_datasource</jta-data-source>
 		<properties>
                         <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
                         <property name="eclipselink.jdbc.url"

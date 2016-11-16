@@ -7,13 +7,14 @@ import java.util.ArrayList;
 @Entity
 public class Box implements IBox {
     private int id;
+    private int userId;
     String boxName;
     ArrayList<Message> messages;
     
     public Box (int id, String boxName){
-        this.messages = new
+        this.messages = new ArrayList();
         this.id = id;
-        this.boxName = boxName
+        this.boxName = boxName;
     }
      
     @Id
@@ -37,7 +38,7 @@ public class Box implements IBox {
     }
 
     @OneToMany
-    @JoinColumn(name="MAIL_BOX_ID", nullable=true)
+    @JoinColumn(name="Messages", nullable=true)
     public ArrayList<Message> getMessages() {
       return messages;
     }
@@ -58,6 +59,14 @@ public class Box implements IBox {
           m.setIsRead(true);
         }
       }
+    }
+
+    public void readUnreadMessages(){
+        for (Message m : messages){
+            if(m.getIsRead()){
+                m.setIsRead(true);
+            }
+        }
     }
 
     public void addMessage(Message message){
