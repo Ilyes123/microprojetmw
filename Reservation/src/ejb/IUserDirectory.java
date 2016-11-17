@@ -17,7 +17,8 @@ import java.util.List;
     public List<MailUser> lookupAllUsers();
 
     public NewsGroupRight lookupAUserRights(String userName);
-    
+    public NewsGroupRight lookupAUserRights(int userId);
+
     public void updateAUserRights(int id, boolean rng,boolean wng);
     
     public MailUser findMailUserByName(String userName);

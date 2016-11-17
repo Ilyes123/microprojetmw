@@ -39,7 +39,7 @@ public class MailUser {
         this.userName = u;
     }
         
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="NEWS_GROUP_RIGHT")
     public NewsGroupRight getNewsGroupRight() {
         return newsGroupRight;

@@ -13,7 +13,7 @@ import java.util.List;
 
     public List<Message> readAUserAllMessages(int userId);
 
-    public void deleteAUserMessage(int userId, int msgId);
+    public void deleteAUserMessage(int userId,int msgId);
 
     public void deleteAUserReadMessages(int userId);
     

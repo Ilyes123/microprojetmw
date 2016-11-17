@@ -24,6 +24,8 @@ public class MailBoxManager implements IMailBoxManager {
    
     public void createNewsBox(){
         NewsBox nb = new NewsBox(0, 0, "NewsBox");
+       
+ 
         em.persist(nb);
     }
     
@@ -42,10 +44,17 @@ public class MailBoxManager implements IMailBoxManager {
         em.remove(r);
     }
     private MailBox findMailBox(int boxId) {
-        Query q = em.createQuery("select c from MailBox m where m.id = :boxId");
+        Query q = em.createQuery("select c from MailBox c where c.id = :boxId");
         q.setParameter("boxId", boxId);
         return (MailBox)q.getSingleResult();
     }
+
+    private NewsBox findNewsBox() {
+        Query q = em.createQuery("select c from NewsBox c where c.id = :boxId");
+        q.setParameter("boxId", 0);
+        return (NewsBox)q.getSingleResult();
+    }
+
 
     private MailBox findMailBoxByUserId(int userId) {
         Query q = em.createQuery("select c from MailBox c where c.userId = :userId");
@@ -63,38 +72,93 @@ public class MailBoxManager implements IMailBoxManager {
 
 
     public List<Message> readAUserNewMessages(int userId) {
-        Box b = em.merge(findMailBox(userId));
-        ArrayList<Message> messages = b.getMessages();
+        Box b = em.merge(findMailBoxByUserId(userId));
+        List<Message> messages = new ArrayList<Message>(b.getMessages());
         for (Message m : messages){
             if (m.getIsRead()){
                 messages.remove(m);
             }
         }
         b.readUnreadMessages();
+        try {
+            InitialContext ic = new InitialContext();
+            sb = (IUserDirectory) ic.lookup("ejb.IUserDirectory");
+            
+            NewsGroupRight ngr = sb.lookupAUserRights(userId);
+            if(ngr.getReadNewsGroup()){ 
+                Query q = em.createQuery("select c from NewsBox c where c.id=0");
+        
+                NewsBox nb = em.merge((NewsBox)q.getSingleResult());
+                
+                messages.addAll(nb.getMessages());
+            }
+            else {
+                System.out.println("\n[+] user cant write in newsbox\n");
+            }
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         return (List<Message>)messages;
     }
 
     public List<Message> readAUserAllMessages(int userId){
         Box b = em.merge(findMailBoxByUserId(userId));
-        ArrayList<Message> messages = b.getMessages();
+        List<Message> messages = new ArrayList<Message>(b.getMessages());
         b.readUnreadMessages();
+        try {
+            InitialContext ic = new InitialContext();
+            sb = (IUserDirectory) ic.lookup("ejb.IUserDirectory");
+            
+            NewsGroupRight ngr = sb.lookupAUserRights(userId);
+            if(ngr.getReadNewsGroup()){ 
+                Query q = em.createQuery("select c from NewsBox c where c.id=0");
+        
+                NewsBox nb = em.merge((NewsBox)q.getSingleResult());
+                
+                messages.addAll(nb.getMessages());
+            }
+            else {
+                System.out.println("\n[+] user cant write in newsbox\n");
+            }
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
         return (List<Message>)messages;
     }
    
     public void deleteAUserMessage(int userId, int msgId){
-        Message m = em.merge(findMessage(msgId));
-        em.remove(m);
+        Message mtr = em.merge(findMessage(msgId));
+        em.remove(mtr);
+        MailBox mb = em.merge(findMailBoxByUserId(userId));
+        ArrayList<Message> messages = new ArrayList<Message>(mb.getMessages());
+        Message messageToRemove = new Message();
+        for (Message m : messages){
+            if (msgId == m.getId()){
+                messageToRemove = m;
+            }
+        }
+        messages.remove(messageToRemove);
+        mb.setMessages(messages);
+ 
+        em.flush();
     }
 
     public void deleteAUserReadMessages(int userId) {
         Box b = em.merge(findMailBoxByUserId(userId));
-        ArrayList<Message> messages = b.getMessages();
+        ArrayList<Message> messages = new ArrayList<Message>(b.getMessages());
+        ArrayList<Message> messagesToRemove = new ArrayList<Message>();
         for (Message m : messages){
             if (m.getIsRead()){
-                messages.remove(m);
+                messagesToRemove.add(m);
             }
         }
+        messages.removeAll(messagesToRemove);
         b.setMessages(messages);
+        em.flush();
     }
 
     public void sendNews(String userName, Message msg){
@@ -104,11 +168,12 @@ public class MailBoxManager implements IMailBoxManager {
             
             NewsGroupRight ngr = sb.lookupAUserRights(userName);
             if(ngr.getWriteNewsGroup()){ 
-                Query q = em.createQuery("select * from NewsBox c");
         
-                NewsBox nb = em.merge((NewsBox)q.getSingleResult());
-
+                NewsBox nb = em.merge(findNewsBox());
+                //em.persist(msg);
                 nb.addMessage(userName,msg);
+
+                
             }
             else {
                 System.out.println("\n[+] user cant write in newsbox\n");
@@ -120,9 +185,10 @@ public class MailBoxManager implements IMailBoxManager {
     }
 
     public void sendAMessageToABox(Message msg, String senderName, int boxId){
+
         MailBox b = findMailBox(boxId);
         em.merge(b);
-        em.persist(msg);
+        //em.persist(msg);
 
         b.addMessage(senderName, msg);
 

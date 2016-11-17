@@ -1,9 +1,9 @@
 package entity;
 
 import javax.persistence.*;
-
+import java.io.Serializable;
 @Entity
-public class NewsGroupRight {
+public class NewsGroupRight implements Serializable{
     private int id;
     static private int lastId=0;
     private boolean readNewsGroup, writeNewsGroup;

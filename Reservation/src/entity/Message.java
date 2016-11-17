@@ -3,9 +3,9 @@ package entity;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.ArrayList;
-
+import java.io.Serializable;
 @Entity
-public class Message {
+public class Message implements Serializable{
     private int id;
     private String senderName, receiverName, subject, body, sendingDate;
     private boolean alreadyRead;

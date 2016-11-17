@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.ArrayList;
 
-@MappedSuperclass
+//@MappedSuperclass
+@Entity
 public class Box implements IBox {
     protected int userId;
     protected int id;
@@ -50,7 +51,7 @@ public class Box implements IBox {
         this.userId = userId;
     }
 
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name="MAIL_BOX_ID", nullable=true)
     public ArrayList<Message> getMessages() {
       return messages;
@@ -76,7 +77,7 @@ public class Box implements IBox {
 
     public void readUnreadMessages(){
         for (Message m : messages){
-            if(m.getIsRead()){
+            if(!m.getIsRead()){
                 m.setIsRead(true);
             }
         }

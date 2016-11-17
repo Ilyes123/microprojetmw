@@ -19,6 +19,7 @@ public class AdministrationClient {
 			sb = (IUserDirectory) ic.lookup("ejb.IUserDirectory");
             
             sb.createNewsBox();
+            
 
             int id1 = sb.addUser("User1", true, true);
             

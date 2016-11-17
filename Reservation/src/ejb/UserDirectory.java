@@ -73,7 +73,12 @@ public class UserDirectory implements IUserDirectory {
         MailUser mailUser = findMailUserByName(userName);
         return mailUser.getNewsGroupRight();
     }
-   
+    
+    public NewsGroupRight lookupAUserRights(int userId){
+        MailUser mailUser = findMailUser(userId);
+        return mailUser.getNewsGroupRight();
+    }
+     
     public void updateAUserRights(int id, boolean readNewsGroup, boolean writeNewsGroup){
         MailUser mailUser = findMailUser(id);
         NewsGroupRight newsGroupRight = mailUser.getNewsGroupRight();
