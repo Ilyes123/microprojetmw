@@ -4,6 +4,13 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 public class Message implements Serializable{
     private int id;
