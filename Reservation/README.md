@@ -1,3 +1,53 @@
+# Project Description
+**ProjectName** : Micro Projet Middleware
+
+**Authors** : Dhia Eddine Chouchane & Elyes Youssef
+
+**Academic Year** : 2016/2017
+
+# Design Patterns
+
+# Persistent Entities
+We chose to persist the following entities: `MailUser`, `NewsGroupRight`, `MailBox`, `Box`, `NewsBox` and `Message`.
+
+Follwing is a brief description of the persistent entities and their attributes.
+
+## MailUser
+### Attributes
+* `int id`
+* `String userName` 
+* `NewsGroupRight newsGroupRight`: Read and write rights on the news group
+
+### Public Methods
+* `String getUserName()` Returns the user name
+* `void setUserName(String userName)` Sets the user name to `userName`
+* `NewsGroupRight getNewsGroupRight()` Returns the news group rights
+* `void setNewsGroupRight(NewsGroupRight right)` Sets the read and write access to `right`
+
+## NewsGroupRight
+### Attributes
+* `int id`
+* `boolean readNewsGroup` : True if you have read access to the news box
+* `boolean writeNewsGroup`: True if you have write access to the news box
+
+### Public Methods
+* `boolean getReadNewsGroup()` Returns the read access boolean
+* `void setReadNewsGroup(boolean right)` Sets the read access to `right`
+* `boolean getWriteNewsGroup()` Returns the write access boolean
+* `void setWriteNewsGroup(boolean right)` Sets the write access to `right`
+
+## MailBox
+### Attributes
+* `int id`
+* `int userId`
+* `String boxName`
+
+### Public Methods
+* `void deleteAMessage(int msgId)` Deletes the message by its ID
+* `void deleteReadMessages()` Deletes all read messages in the box
+* `void deleteAllMessages()` Deletes all messages in the box
+* `void readNewsMessages()` Reads all new messages (marks them as read)
+
 # WebService interfaces 
 ## Mail Box Manager interface 
 ```java
@@ -93,13 +143,13 @@ Returns the user object (fetch it by its name `userName`)
 ```
 Clears the DataBase.
  
-# Rest interface description
+# REST 
 
 * The application's base URI is : `http://localhost:9876/mail`
 
 We chose to implement the mail box manager in REST and deploy it to `/mail_box`
 
-## The interface 
+## The REST interface 
 POST    `/add`  (query params : [`box_name`, `user_id`])  creates a new mail box 
 
 DELETE  `/box/{box_id}`                                   removes a mail box
