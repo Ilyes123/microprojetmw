@@ -52,12 +52,12 @@
     <javac classpath="${glassfish.home}/lib/javaee.jar" 
            srcdir="src/client"
            destdir="."
-           includes="AdministrationClient.java"/>
+           includes="MailBoxClient.java,AdministrationClient.java"/>
   </target>
   
   <target name="build-jar" 
         description="Build jar archive" >
-    <jar destfile="entityBeanExample.jar"
+    <jar destfile="microprojet.jar"
          basedir="."
 	 includes="META-INF/persistence.xml,client/,ejb/,entity/"/>
   </target>
@@ -68,7 +68,7 @@
     <exec executable="${glassfish.home}/bin/asadmin" 
           failonerror="true" 
           vmlauncher="false">
-      <arg line="deploy --retrieve . entityBeanExample.jar"/>
+      <arg line="deploy --retrieve . microprojet.jar"/>
     </exec>
   </target>
 
@@ -77,13 +77,13 @@
     <exec executable="${glassfish.home}/bin/asadmin" 
           failonerror="true" 
           vmlauncher="false">
-      <arg line="undeploy entityBeanExample"/>
+      <arg line="undeploy microprojet"/>
     </exec>
   </target>
 
   <target name="clean" 
           description="clean up" >
-    <delete file="entityBeanExample.jar"/>
+    <delete file="microprojet.jar"/>
     <delete dir="${entity}"/>
     <delete dir="${ejb}"/>
     <delete dir="${client}"/>
