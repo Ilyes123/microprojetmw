@@ -15,20 +15,28 @@ public class MailBox extends Box implements IMailBox {
     super();
   }
   public void deleteAMessage(int msgId) {
-    for(Message msg : messages) {
-      if(msg.getId() == msgId){
-        messages.remove(msg);
-        break;
-      }
+    ArrayList<Message> messages = new ArrayList<Message>(this.getMessages());
+    Message messageToRemove = new Message();
+    for (Message m : messages){
+        if (msgId == m.getId()){
+            messageToRemove = m;
+        }
     }
+    messages.remove(messageToRemove);
+    this.setMessages(messages);
+   
   }
 
   public void deleteReadMessages() {
-    for(Message msg : messages) {
-      if (msg.getIsRead()) {
-        messages.remove(msg);
-      }
+    ArrayList<Message> messages = new ArrayList<Message>(this.getMessages());
+    ArrayList<Message> messagesToRemove = new ArrayList<Message>();
+    for (Message m : messages){
+       if (m.getIsRead()){
+          messagesToRemove.add(m);
+       }
     }
+    messages.removeAll(messagesToRemove);
+    this.setMessages(messages);
   }
 
   public void deleteAllMessages() {

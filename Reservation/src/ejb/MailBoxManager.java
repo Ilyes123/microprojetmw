@@ -134,30 +134,13 @@ public class MailBoxManager implements IMailBoxManager {
         Message mtr = em.merge(findMessage(msgId));
         em.remove(mtr);
         MailBox mb = em.merge(findMailBoxByUserId(userId));
-        ArrayList<Message> messages = new ArrayList<Message>(mb.getMessages());
-        Message messageToRemove = new Message();
-        for (Message m : messages){
-            if (msgId == m.getId()){
-                messageToRemove = m;
-            }
-        }
-        messages.remove(messageToRemove);
-        mb.setMessages(messages);
- 
+        mb.deleteAMessage(msgId); 
         em.flush();
     }
 
     public void deleteAUserReadMessages(int userId) {
-        Box b = em.merge(findMailBoxByUserId(userId));
-        ArrayList<Message> messages = new ArrayList<Message>(b.getMessages());
-        ArrayList<Message> messagesToRemove = new ArrayList<Message>();
-        for (Message m : messages){
-            if (m.getIsRead()){
-                messagesToRemove.add(m);
-            }
-        }
-        messages.removeAll(messagesToRemove);
-        b.setMessages(messages);
+        MailBox b = em.merge(findMailBoxByUserId(userId));
+        b.deleteReadMessages(); 
         em.flush();
     }
 
