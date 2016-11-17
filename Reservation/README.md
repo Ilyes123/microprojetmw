@@ -212,3 +212,7 @@ DELETE  `/{user_id}/read_messages`                        delete's a users all r
 
 POST    `/send_news` (query params: [`user_name`, `msg`]) posts a new message to the news box
 
+## Encountered problems
+Our rest interface is a proxy which receives the requests over http, and then acts as a client to the Java service provided by glassfish.
+
+The problem is that when initianting the initial context, we get an exception : `NoInitialContextException`. We didn't manage to solve it.
