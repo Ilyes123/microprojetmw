@@ -6,6 +6,11 @@
 **Academic Year** : 2016/2017
 
 # Design Patterns
+    1. Synchronous calls: The calls for the methods on the managers are all synchronous.
+    2. Interface contract between clients and servers: The clients only have access to the interfaces provided by the servers.
+    3. Wrapper: We used a wrapper class to convert the rest calls to method calls on the MailBoxManager.
+    4. Naming: The servers register their names and the clients retrieve a reference on them by providing that name.
+
 
 # Persistent Entities
 We chose to persist the following entities: `MailUser`, `NewsGroupRight`, `MailBox`, `Box`, `NewsBox` and `Message`.
