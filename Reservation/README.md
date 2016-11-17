@@ -36,17 +36,60 @@ Follwing is a brief description of the persistent entities and their attributes.
 * `boolean getWriteNewsGroup()` Returns the write access boolean
 * `void setWriteNewsGroup(boolean right)` Sets the write access to `right`
 
-## MailBox
+## Box
 ### Attributes
 * `int id`
 * `int userId`
 * `String boxName`
+* `ArrayList<Message> messages` : Refers to the messages in the message box
+
+### Public Methods
+* `String getBoxName()`
+* `void setBoxName(String boxName)`
+* `ArrayList<Message> getMessages()` : Returns all the messages in the mailbox
+* `void setMessages(ArrayList messages)`
+* `void readAllMessages()` : Marks all the messages in the box as read
+* `void readAMessage(int messageid)` : Marks one message as read
+* `void readUnreadMessages()` : Marks all unread messages as read
+* `void addMessage(String userName, Message message) : Adds the message to the box
+
+## NewsBox
+It inherits from `Box` thus it has all of its attributes and methods
+
+## MailBox
+It inherits from `Box` thus it has all of its attributes and methods
 
 ### Public Methods
 * `void deleteAMessage(int msgId)` Deletes the message by its ID
 * `void deleteReadMessages()` Deletes all read messages in the box
 * `void deleteAllMessages()` Deletes all messages in the box
 * `void readNewsMessages()` Reads all new messages (marks them as read)
+
+## Message
+### Attributes
+* `int id`
+* `String senderName;`
+* `String receiverName`
+* `String subject`
+* `String body`
+* `String sendingDate`
+* `boolean alreadyRead`
+
+### Public Methods
+* `int getId()`
+* `void setId()`
+* `String getSenderName()`
+* `void setSenderName(String SenderName)`
+* `String getReceiverName()`
+* `void (String receiverName)`
+* `String getSubject()`
+* `void (String subject)`
+* `String getBody()`
+* `void (String body)`
+* `String getSendingDate()`
+* `void (String sendingDate)`
+* `int getIsRead()`
+* `void setIsRead(boolean isRead)`
 
 # WebService interfaces 
 ## Mail Box Manager interface 
