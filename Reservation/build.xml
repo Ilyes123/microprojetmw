@@ -54,7 +54,7 @@
          description="Build rest jar" >
          <javac
            srcdir="src/rest"
-           destdir="."
+           destdir="./bin"
            includes="MailBoxManagerRest.java,Publisher.java">
            <classpath>
              <fileset dir="./lib">
@@ -80,6 +80,22 @@
     <jar destfile="microprojet.jar"
          basedir="."
          includes="META-INF/persistence.xml,client/,ejb/,entity/,rest/"/>
+  </target>
+
+  <target name="run-server"
+    description="Runs the rest publisher" >
+    <java classname="rest.Publisher">
+      <classpath>
+        <fileset dir="./lib">
+          <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="."/>
+        <fileset dir="${glassfish.home}/lib">
+           <include name="**/javaee.jar"/>
+        </fileset>
+
+      </classpath>
+    </java>
   </target>
 
 

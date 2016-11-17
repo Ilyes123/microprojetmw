@@ -21,16 +21,16 @@ import com.google.gson.*;
 import javax.naming.InitialContext;
 import javax.ejb.*;
 
-import ejb.MailBoxManager;
+import ejb.IMailBoxManager;
 
 @Path("/mail_box")
 public class MailBoxManagerRest {
     // Connect to the EJB webs
-    private MailBoxManager service(){
-      MailBoxManager mb = null;
+    private IMailBoxManager service(){
+      IMailBoxManager mb = null;
       try {
         InitialContext ic = new InitialContext();
-        mb = (MailBoxManager) ic.lookup("ejb.IMailBoxManager");
+        mb = (IMailBoxManager) ic.lookup("ejb.IMailBoxManager");
       } catch (Exception e){
         e.printStackTrace();
       }
