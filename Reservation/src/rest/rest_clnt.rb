@@ -9,5 +9,3 @@ res = Net::HTTP.get(URI("#{base_url}#{service}/1/unread_messages"));
 
 puts res.body
 
-# Post a news message 
-Net::HTTP.get(URI("#{base_url}#{service}/send_news"), "user_name"=>"user", "msg"=> "hello World")
